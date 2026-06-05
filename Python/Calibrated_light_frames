@@ -1,0 +1,79 @@
+from pathlib import Path
+import numpy as np
+from astropy.io import fits
+
+# ==========================================
+# INSTELLINGEN
+# ==========================================
+
+input_folder = Path(
+    r"C:\Documents\GitHub\Offline_bestanden_project\Ruwe_data\04-03-2026\Ha"
+)
+
+output_folder = Path(
+    r"C:\Documents\GitHub\Offline_bestanden_project\Ruwe_data\04-03-2026\Gekalibreerde_afbeeldingen\Ha"
+)
+
+master_flat_path = Path(
+    r"C:\Documents\GitHub\Offline_bestanden_project\Ruwe_data\04-03-2026\Flat_Ha\Master_Flat_Ha.fits"
+)
+
+# maak output folder als die nog niet bestaat
+output_folder.mkdir(parents=True, exist_ok=True)
+
+# ==========================================
+# MASTER FLAT INLEZEN
+# ==========================================
+
+print("Loading master flat...")
+
+master_flat = fits.getdata(master_flat_path).astype(np.float32)
+
+print("Master flat loaded")
+
+# ==========================================
+# FILES ZOEKEN
+# ==========================================
+
+files = [
+    f for f in input_folder.iterdir()
+    if "darkcorrected" in f.name.lower()
+    and f.suffix.lower() in [".fit", ".fits"]
+]
+
+print(f"{len(files)} files gevonden")
+
+# ==========================================
+# CALIBRATIE
+# ==========================================
+
+for f in files:
+
+    print("\nProcessing:", f.name)
+
+    data, header = fits.getdata(f, header=True)
+    data = data.astype(np.float32)
+
+    # STEP 1: flat correction
+    calibrated = data / master_flat
+
+    print("Median input:", np.median(data))
+    print("Median output:", np.median(calibrated))
+
+    # ======================================
+    # OPSLAAN
+    # ======================================
+
+    output_name = f.stem.replace("_darkcorrected", "") + "_calibrated.fits"
+    output_path = output_folder / output_name
+
+    fits.writeto(
+        output_path,
+        calibrated,
+        header,
+        overwrite=True
+    )
+
+    print("Saved:", output_name)
+
+print("\nAlle calibrated images opgeslagen.")
