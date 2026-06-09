@@ -187,6 +187,10 @@ print("\nAantal succesvol uitgelijnde frames:", len(aligned_images))
 if len(aligned_images) == 0:
     raise RuntimeError("Geen enkele frame kon worden uitgelijnd. Controleer je referentieframe!")
 
+print(aligned_images[0].shape)
+print(aligned_images[0].dtype)
+print(len(aligned_images))
+
 # 5. Stacken met de mediaan om resterende satellietsporen/ruis te filteren
 print("Beelden stacken...")
 stack = np.median(aligned_images, axis=0)
