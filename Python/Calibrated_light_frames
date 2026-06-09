@@ -7,15 +7,15 @@ from astropy.io import fits
 # ==========================================
 
 input_folder = Path(
-    r"C:\Documents\GitHub\Offline_bestanden_project\Ruwe_data\04-03-2026\Ha"
+    r"C:\Documents\GitHub\Offline_bestanden_project\Ruwe_data\05-03-2026\OIII"
 )
 
 output_folder = Path(
-    r"C:\Documents\GitHub\Offline_bestanden_project\Ruwe_data\04-03-2026\Gekalibreerde_afbeeldingen\Ha"
+    r"C:\Documents\GitHub\Offline_bestanden_project\Ruwe_data\05-03-2026\Gekalibreerde_afbeeldingen\OIII"
 )
 
 master_flat_path = Path(
-    r"C:\Documents\GitHub\Offline_bestanden_project\Ruwe_data\04-03-2026\Flat_Ha\Master_Flat_Ha.fits"
+    r"C:\Documents\GitHub\Offline_bestanden_project\Ruwe_data\05-03-2026\Flat_OIII\Master_Flat_OIII.fits"
 )
 
 # maak output folder als die nog niet bestaat
