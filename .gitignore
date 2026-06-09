@@ -15,3 +15,4 @@ __pycache__/
 # OS bestanden
 .DS_Store
 Thumbs.db
+Python/image_stacking
