@@ -16,3 +16,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 Python/image_stacking
+
+# Local personal code (not shared)
+Python_kopiën/
